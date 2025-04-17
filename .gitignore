@@ -1,0 +1,14 @@
+**/*.csproj
+**/*.sln
+**/*.sln.DotSettings.user
+
+/*
+!/.gitignore
+!/Assets/
+
+Assets/*
+!Assets/NanizationCodeBase/
+
+!Assets/NanizationCodeBase/**
+
+Assets/NanizationCodeBase/Test/
