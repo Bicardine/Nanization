@@ -54,7 +54,7 @@ myTmpText.text = await myFullLocalizedPathString.LocalizeAsync();
 
 
 ### 2. Ninja-mode
-- Auto update (get current localization from locale) on locale changed
+- Will auto subscribe to locale changed
 In this mod, you need to specify which document and key you want to sign and which Action<string> to call to localize
 
 Use:
