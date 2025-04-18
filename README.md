@@ -144,7 +144,7 @@ It's means IDE also will safely show field that already was setting.
 
 For example:
 ```csharp
-Nanization.Bind().WIthKey("SomeKey).Key // IDE will show "Key" as possible public field, and allow to access to it.
+Nanization.Bind().WIthKey("SomeKey).Key // IDE will show Key as possible public field, and allow to access to it.
 Nanization.Bind().Key // Not showing in IDE, the key wasn't setting yet.
 ```
 
