@@ -24,13 +24,8 @@ namespace NanizationCodeBase.Services
 
             return _textManager;
         }
-
-        public static ITextManager GetTextManager()
-        {
-            return _textManager;
-        }
-
-        public static async UniTask<ILocalizationManager> GetLocalizationManager()
+        
+        public static async UniTask<ILocalizationManager> GetLocalizationManagerAsync()
         {
             if (Engine.Initialized == false)
                 await _initializationSource.Task;

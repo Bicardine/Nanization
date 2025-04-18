@@ -23,17 +23,6 @@ namespace NanizationCodeBase.Utils
             return textManager.GetRecordValue(key, documentName);
         }
         
-        /// <summary>
-        /// Get document-name from argument and key (auto lowercase) from self.
-        /// </summary>
-        /// <exception cref="NullReferenceException"> if Engine.Initislized == false</exception>
-        public static string LocalizeSync(string documentName, string key)
-        {
-            var textManager = NanizationService.GetTextManager();
-            
-            return textManager.GetRecordValue(key, documentName);
-        }
-
         public static void GetKeyAndDocumentFromString(string stringSource, out string document, out string key)
         {
             key = string.Empty;
