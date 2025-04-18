@@ -5,7 +5,7 @@
 
 ## Features ✨
 - No need to worry about `Engine.Initialized`!
-- No need to get `Engine.GetService<ITextManager>()`!
+- No need to get `Engine.GetService<ITextManager>/<ILocalizationManager>()`!
 - No need to worry about `DocumentLoader.IsLoaded`!
 - Auto-subscribers for locale changes!
 - Just use it - Nanization handles everything behind the scenes!
