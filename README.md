@@ -145,28 +145,29 @@ It's also work with all other some things.
 So then bind ready (auto IReadyToLocalizationBuild interface) you can use .LocalyzeAsync() to it, or store for now and localize another way. For example:
 ```csharp
 var localizationBuildWithFallback = Nanization.Bind()
-                .WithKey("TitileMenu.Title")
-                .WithDocument("DefaultUI")
-                .SetFallback("Title")
+                .WithKey("TitleMenu.Title")
+                .WithDocument("MyDocument")
+                .SetFallback("Title");
 
 // Your custom code here...
 
 tmpText.text = localizationBuildWithFallback.LocalizeAsync();
 
-tmpText.text = Nanization.LocalizeAsync(localizationBuildWithFallback));
+// Also works fine.
+tmpText.text = await Nanization.LocalizeAsync(localizationBuildWithFallback));
 ```
 
-Bind mode it's also work fine for selfSourceString:
+Bind mode also work fine for selfSourceString:
 ```csharp
 "DefaultUI.ControlPanel.Title".Bind() // Will auto .SetKey("ControlPanel.Title") so IDE will not showing you .SetKey() as possible method
-  .AsSelfPath() // will also set Document = "DefaultUI"
+  .AsSelfPath(); // Will also set Document = "DefaultUI", and Key = "ControlPanel.Title".
 ```
 
 Or another ways:
 ```csharp
 tmpText = await "ControlPanel.Title".Bind()
-                .WithDocument("DefaultUI")
-                .LocalizeAsync(); // Will find localization with Document = "DefaultUI" Key = "ControlPanel.Title"
+          .WithDocument("DefaultUI")
+          .LocalizeAsync(); // Will find localization with Document = "DefaultUI" Key = "ControlPanel.Title"
 ```
 
 By the way you can also use "Inline chaining":
@@ -176,5 +177,10 @@ Nanization.Bind().WithKey("SomeKey").WithDocument("SomeDoc").SetFallback("SomeFa
 
 Or use vertical chaining, like example below.
 
-
-
+## Notes 📝
+- Keep it in mind, unlike holy Naninovel accepts the key first in localization components, then the document (key, document), Nanization always requires the Document first, then the Key, as a more logical order.
+- You can use NanizationService to get ITextManager or ILocalizationManager with own hand, without scary of Engine.Initialized == false
+```csharp
+  var textManager = await NanizationService.GetTextManagerAsync();
+  var localizationManager = await NanizationService.GetLocalizationManagerAsync();
+```
