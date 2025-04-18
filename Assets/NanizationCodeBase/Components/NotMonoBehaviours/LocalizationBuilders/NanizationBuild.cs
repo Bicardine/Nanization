@@ -35,14 +35,7 @@ namespace NanizationCodeBase.Components.NotMonoBehaviours.LocalizationBuilders
         public IEmptyNanizationBuildWithFallback SetFallback(string fallback) => SetFallbackAndReturn(fallback);
         
         public async UniTask<string> LocalizeAsync()
-        {
-            var textManager = await NanizationService.GetTextManagerAsync();
-            
-            Debug.Log($"LOCALIZE: source: {_sourceString} key: {_key} document: {_document}, fallback: {_fallback}");
-            var localized = await Nanization.LocalizeAsync(_document, _key, _fallback);
-            Debug.Log(localized);
-            return await Nanization.LocalizeAsync(_document, _key, _fallback);
-        }
+            => await Nanization.LocalizeAsync(_document, _key, _fallback);
 
         private NanizationBuild AsSelfPathAndReturn()
         {

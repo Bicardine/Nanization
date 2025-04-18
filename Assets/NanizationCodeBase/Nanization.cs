@@ -66,7 +66,6 @@ namespace NanizationCodeBase
         private static string GetSubscriberId(string document, string key, Action<string> callback)
         {
             var subscriberId = $"{document}_{key}_{callback.GetHashCode()}";
-            UnityEngine.Debug.Log(subscriberId);
             
             return subscriberId;
         }

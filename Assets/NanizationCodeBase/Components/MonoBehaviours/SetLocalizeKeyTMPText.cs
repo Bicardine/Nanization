@@ -43,7 +43,7 @@ namespace NanizationCodeBase.Components.MonoBehaviours
 
         private void NewSubscribe()
         {
-            _nanizationSubscriber = Nanization.Subscribe(_documentName, _key, Localize, _fallback);
+            _nanizationSubscriber = Nanization.Subscribe(_documentName, _key, Localize, localizeNow: false);
         }
 
 
