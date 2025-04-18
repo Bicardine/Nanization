@@ -48,6 +48,8 @@ myTmpText.text = await myFullLocalizedPathString.LocalizeAsync();
 ```
 
 
+
+
 ### 2. Ninja-mode
 - Auto update (get current localization from locale) on locale changed
 In this mod, you need to specify which document and key you want to sign and which Action<string> to call to localize
@@ -111,7 +113,9 @@ private void OnDestroy()
 ```
 
 
-3. Bind-mode (build your own way, as ninja with method chaining!)
+
+
+### 3. Bind-mode (build your own way, as ninja with method chaining!)
 - If need to transfer the localization bind to runtime or perform actions depending on conditions
 - If need to get info about localization (such as document, key, fallback)
 - Fluent builder mode with compiler grant (strict-order)
