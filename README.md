@@ -178,7 +178,7 @@ Nanization.Bind().WithKey("SomeKey").WithDocument("SomeDoc").SetFallback("SomeFa
 Or use vertical chaining, like example below.
 
 ## Notes 📝
-- Keep it in mind, unlike holy Naninovel accepts the key first in localization components, then the document (key, document), Nanization always requires the Document first, then the Key, as a more logical order.
+- Keep it in mind, unlike holy Naninovel accepts the Key first in localization methods, then the Document (key, document), Nanization always requires the Document first, then the Key (document, key), as a more logical order.
 - You can use NanizationService to get ITextManager or ILocalizationManager with own hand, without scary of Engine.Initialized == false
 ```csharp
   var textManager = await NanizationService.GetTextManagerAsync();
