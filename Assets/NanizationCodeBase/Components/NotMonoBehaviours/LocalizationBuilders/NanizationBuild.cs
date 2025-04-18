@@ -1,7 +1,5 @@
 using Naninovel;
-using NanizationCodeBase.Services;
 using NanizationCodeBase.Utils;
-using UnityEngine;
 
 namespace NanizationCodeBase.Components.NotMonoBehaviours.LocalizationBuilders
 {
@@ -12,7 +10,7 @@ namespace NanizationCodeBase.Components.NotMonoBehaviours.LocalizationBuilders
         ISelfNanizationBuild, ISelfNanizationBuildWithFallback,
         IWithKeyNanizationBuild, IWithKeyNanizationBuildWithFallback,
         IWithDocumentNanizationBuild, IWithDocumentNanizationBuildWithFallback,
-        IReadyToExecuteNanizationBuild
+        IReadyToExecuteNanizationBuild, IReadyToExecuteNanizationBuildWithFallback
     {
         private string _sourceString;
         private string _document;
@@ -29,13 +27,22 @@ namespace NanizationCodeBase.Components.NotMonoBehaviours.LocalizationBuilders
             _sourceString = sourceString;
         }
         
+        public IReadyToExecuteNanizationBuildWithFallback AsSelfPath() => AsSelfPathAndReturn();
+        
+        IReadyToExecuteNanizationBuildWithFallback IWithKeyNanizationBuildWithFallback.WithDocument(string document)
+            => SetDocumentAndReturn(document);
+        
         public IWithDocumentNanizationBuild WithDocument(string document) => SetDocumentAndReturn(document);
-        
+
+        IReadyToExecuteNanizationBuildWithFallback IWithDocumentNanizationBuildWithFallback.WithKey(string key)
+            => SetKeyAndReturn(key);
+
         public IWithKeyNanizationBuild WithKey(string key) => SetKeyAndReturn(key);
-        public IEmptyNanizationBuildWithFallback SetFallback(string fallback) => SetFallbackAndReturn(fallback);
         
-        public async UniTask<string> LocalizeAsync()
-            => await Nanization.LocalizeAsync(_document, _key, _fallback);
+        public IEmptyNanizationBuildWithFallback SetFallback(string fallback)
+            => SetFallbackAndReturn(fallback);
+        
+        public async UniTask<string> LocalizeAsync() => await Nanization.LocalizeAsync(_document, _key, _fallback);
 
         private NanizationBuild AsSelfPathAndReturn()
         {
@@ -72,24 +79,15 @@ namespace NanizationCodeBase.Components.NotMonoBehaviours.LocalizationBuilders
 
             return this;
         }
-
-        IReadyToExecuteNanizationBuildWithFallback IWithKeyNanizationBuildWithFallback.WithDocument(string document)
-            => SetDocumentAndReturn(document);
-
-        IReadyToExecuteNanizationBuildWithFallback IWithDocumentNanizationBuildWithFallback.WithKey(string key)
-            => SetKeyAndReturn(key);
-
+        
         IWithDocumentNanizationBuild IEmptyNanizationBuild.WithDocument(string document)
             => SetDocumentAndReturn(document);
 
         IReadyToExecuteNanizationBuild IWithDocumentNanizationBuild.WithKey(string key)
             => SetKeyAndReturn(key);
-        
-        IReadyToExecuteNanizationBuildWithFallback ISelfNanizationBuildWithFallback.AsSelfPath()
-            => AsSelfPathAndReturn();
 
         IReadyToExecuteNanizationBuildWithFallback ISelfNanizationBuildWithFallback.WithDocument(string document)
-            => SetDocumentFromSourceAndReturn(document);
+            => SetDocumentAndReturn(document);
 
         IReadyToExecuteNanizationBuild ISelfNanizationBuild.AsSelfPath()
             => AsSelfPathAndReturn();

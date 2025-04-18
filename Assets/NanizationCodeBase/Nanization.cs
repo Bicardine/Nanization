@@ -36,6 +36,9 @@ namespace NanizationCodeBase
             
             return localizedValue;
         }
+        
+        public static async UniTask<string> LocalizeAsync(IReadyToLocalizeBuild nanizationBuild)
+            => await nanizationBuild.LocalizeAsync();
 
         public static INanizationSubscriber Subscribe(
             string document, string key, Action<string> callback, string fallback = null, bool localizeNow = true)
