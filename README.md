@@ -122,7 +122,7 @@ Nanization.Bind() // Will start bind your localization.
   .LocalizeAsync(); // Will execute localization right now.
 ```
 
-Compiler grant means you can use methods as .SetFallback() in start bind:
+Compiler grant means you can use methods as .SetFallback() in any order in bind:
 
 ```csharp
 Nanization.Bind()
@@ -130,7 +130,7 @@ Nanization.Bind()
   .WithKey("TitileMenu.Title") // Will set key = "TitileMenu.Title"
   .WithDocument("DefaultUI")
 ```
-But you can't use SetFallback twice, or another one-time methods
+But you can't use SetFallback twice, or another one-time methods.
 It's means IDE also will safely show field that already was setting.
 
 For example:
