@@ -31,7 +31,7 @@ There is many mode-ways to use Nanization!
 public async UniTask Localize()
 {
   // Will localize your string. Even Engine.Initialized == false will wait for it and return localized string.
-  myTmpText.text = await "DefaultUI.ControlPanel.Title".LocalizeAsync()
+  myTmpText.text = await "DefaultUI.ControlPanel.Title".LocalizeAsync();
   // If there is no arguments, will localize string like whole localization path
   // (Document = "DefaultUI", Key = "ControlPanel.Title" (all after first auto exclusive dot)
 }
@@ -40,7 +40,7 @@ public async UniTask Localize()
 Another way:
 ```csharp
   // (Document = "DefaultUI", Key = "ControlPanel.Title")
-  myTmpText.text = await "ControlPanel.Title".LocalizeAsync("DefaultUI")
+  myTmpText.text = await "ControlPanel.Title".LocalizeAsync("DefaultUI");
 ```
 
 Of course it's work with variables string:
@@ -80,7 +80,7 @@ private void Start()
 // Auto called every time on localized changed.
 private void OnLocalized(string localizedValue)
 {
-    UnityEngine.Debug.Log($"I was localized!: {localizedValue}")
+    UnityEngine.Debug.Log($"I was localized!: {localizedValue}");
     _tmpText.SetText(localizedValue);
 }
 ```
@@ -91,7 +91,7 @@ You can also "pause" your subscriber, so...
 
 ```csharp
 // Localize and subscribe to locale changed.
-var nanizatoinSubscriber = Nanization.Subscribe(_documentName, _key, OnLocalized
+var nanizatoinSubscriber = Nanization.Subscribe(_documentName, _key, OnLocalized)
 
 nanizatoinSubscriber.Pause() // Will unsubscribe from OnLocaleChanged events and will not execute localizatoin callbacks so
 // OnLocalized() Will not execute on locale changed becouse of Pause(), until Resume()
@@ -102,7 +102,7 @@ nanizatoinSubscriber.Resume() // Will continue execute callback on localiation c
 
 to localize it with your hand, use 
 ```csharp
-nanizationSubscriber.Localize()
+nanizationSubscriber.Localize();
 ```
 If your want control localization invoke it for some reason (if was seted localizeNow = false on subscribe for example)
 
@@ -111,7 +111,7 @@ If you don't want use nanizatoinSubscriber anymore:
 ```csharp
 private void OnDestroy()
 {
-  nanizationSubscriber.Unsubscribe() // when object will destroy, invoke IDisposable
+  nanizationSubscriber.Unsubscribe(); // When object will destroy, invoke IDisposable
 }
 ```
 
@@ -137,7 +137,7 @@ Compiler grant means you can use methods as .SetFallback() in any order in bind:
 Nanization.Bind()
   .SetFallback("Title")// Will start bind your localization.
   .WithKey("TitileMenu.Title") // Will set key = "TitileMenu.Title"
-  .WithDocument("DefaultUI")
+  .WithDocument("DefaultUI");
 ```
 But you can't use SetFallback twice, or another one-time methods.
 It's means IDE also will safely show field that already was setting.
