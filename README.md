@@ -4,11 +4,11 @@
 > Simple Naninovel localization without boilerplate code. Works like a ninja!
 
 ## Features ✨
-- No need to worry about `Engine.Initialized`!
-- No need to get `Engine.GetService<ITextManager>/<ILocalizationManager>()`!
-- No need to worry about `DocumentLoader.IsLoaded`!
-- Auto-subscribers for locale changes!
-- Just use it - Nanization handles everything behind the scenes!
+- No need to worry about `Engine.Initialized`
+- No need to get `Engine.GetService<ITextManager>/<ILocalizationManager>()`
+- No need to worry about `DocumentLoader.IsLoaded`
+- Auto-subscribers for locale changes
+- Just use it - Nanization handles everything behind the scenes
 
 ## Requirements 📦
 - Naninovel v1.20 or later
