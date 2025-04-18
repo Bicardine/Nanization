@@ -14,8 +14,11 @@
 - Naninovel v1.20 or later
 
 ## Installation ⚙️
-Install via git or just download .unitypackage from
+- Make sure Naninovel is installed in project
+- Install Nanization via git or just download .unitypackage from
 [Releases](https://github.com/Bicardine/Nanization/releases)
+- Make sure managed text was created
+
 
 ## Usage 🏹
 There is many mode-ways to use Nanization!
