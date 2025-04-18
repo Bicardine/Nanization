@@ -1,4 +1,6 @@
 # Nanization
+![nanizationlogowithtext](https://github.com/user-attachments/assets/ad29d37b-b3bf-4ba3-83f6-6822af74c1f0)
+
 > Simple Naninovel localization without boilerplate code. Works like a ninja!
 
 ## Features ✨
