@@ -1,11 +1,14 @@
 using System;
 using Naninovel;
+using NanizationCodeBase.Model.Data;
 using NanizationCodeBase.Services;
 
 namespace NanizationCodeBase.Components.NotMonoBehaviours
 {
-    public class NanizationSubscriber : INanizationSubscriber, IDisposable
+    public class NanizationSubscriber : INanizationSubscriber
     {
+        private readonly Guid _guid;
+        
         private readonly string _document;
         private readonly string _key;
         private readonly string _fallback;
@@ -15,10 +18,14 @@ namespace NanizationCodeBase.Components.NotMonoBehaviours
         private bool _isDisposed;
         private bool _isPaused;
         
+        public Guid Id => _guid;
+        
         public bool IsActive => _isDisposed == false && _isPaused == false;
 
-        public NanizationSubscriber(string document, string key, Action<string> callback, Action onDispose, string fallback = null)
+        public NanizationSubscriber(Guid guid, string document, string key, Action<string> callback, Action onDispose, string fallback = null)
         {
+            _guid = guid;
+            
             _document = document;
             _key = key;
             _callback = callback;
@@ -70,11 +77,6 @@ namespace NanizationCodeBase.Components.NotMonoBehaviours
             _onDispose?.Invoke();
         }
 
-        public void Unsubscribe()
-        {
-            Dispose();
-        }
-        
         private void SubscribeToLocaleChanged()
         {
             NanizationService.OnLocaleChanged += HandleOnLocaleChanged;

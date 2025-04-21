@@ -1,4 +1,3 @@
-using System;
 using NanizationCodeBase.Components.NotMonoBehaviours;
 using TMPro;
 using UnityEngine;
@@ -31,7 +30,7 @@ namespace NanizationCodeBase.Components.MonoBehaviours
 
         private void OnDestroy()
         {
-            _nanizationSubscriber.Unsubscribe();
+            _nanizationSubscriber.Dispose();
         }
         
         private void Localize(string localizedValue)

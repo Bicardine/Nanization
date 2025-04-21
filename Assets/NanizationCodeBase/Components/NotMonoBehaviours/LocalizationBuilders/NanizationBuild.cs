@@ -1,10 +1,9 @@
+using System;
 using Naninovel;
 using NanizationCodeBase.Utils;
 
 namespace NanizationCodeBase.Components.NotMonoBehaviours.LocalizationBuilders
 {
-    // Mutable concept.
-    // And explicit interfaces to build limitation.
     public class NanizationBuild : 
         IEmptyNanizationBuild, IEmptyNanizationBuildWithFallback,
         ISelfNanizationBuild, ISelfNanizationBuildWithFallback,
@@ -12,7 +11,8 @@ namespace NanizationCodeBase.Components.NotMonoBehaviours.LocalizationBuilders
         IWithDocumentNanizationBuild, IWithDocumentNanizationBuildWithFallback,
         IReadyToExecuteNanizationBuild, IReadyToExecuteNanizationBuildWithFallback
     {
-        private string _sourceString;
+        private readonly string _sourceString;
+        
         private string _document;
         private string _key;
         private string _fallback;
@@ -29,19 +29,16 @@ namespace NanizationCodeBase.Components.NotMonoBehaviours.LocalizationBuilders
         
         public IReadyToExecuteNanizationBuildWithFallback AsSelfPath() => AsSelfPathAndReturn();
         
-        IReadyToExecuteNanizationBuildWithFallback IWithKeyNanizationBuildWithFallback.WithDocument(string document)
-            => SetDocumentAndReturn(document);
-        
         public IWithDocumentNanizationBuild WithDocument(string document) => SetDocumentAndReturn(document);
-
-        IReadyToExecuteNanizationBuildWithFallback IWithDocumentNanizationBuildWithFallback.WithKey(string key)
-            => SetKeyAndReturn(key);
-
+        
         public IWithKeyNanizationBuild WithKey(string key) => SetKeyAndReturn(key);
         
         public IEmptyNanizationBuildWithFallback SetFallback(string fallback)
             => SetFallbackAndReturn(fallback);
-        
+
+        public INanizationSubscriber Subscribe(Action<string> callback, bool localizeNow = true)
+            => NanizationSubscriberFactory.NewSubscriber(_document, _key, callback, _fallback, localizeNow);
+
         public async UniTask<string> LocalizeAsync() => await Nanization.LocalizeAsync(_document, _key, _fallback);
 
         private NanizationBuild AsSelfPathAndReturn()
@@ -79,6 +76,13 @@ namespace NanizationCodeBase.Components.NotMonoBehaviours.LocalizationBuilders
 
             return this;
         }
+        
+        IReadyToExecuteNanizationBuildWithFallback IWithKeyNanizationBuildWithFallback.WithDocument(string document)
+            => SetDocumentAndReturn(document);
+
+
+        IReadyToExecuteNanizationBuildWithFallback IWithDocumentNanizationBuildWithFallback.WithKey(string key)
+            => SetKeyAndReturn(key);
         
         IWithDocumentNanizationBuild IEmptyNanizationBuild.WithDocument(string document)
             => SetDocumentAndReturn(document);

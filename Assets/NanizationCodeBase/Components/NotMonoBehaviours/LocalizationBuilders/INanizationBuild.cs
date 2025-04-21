@@ -1,8 +1,11 @@
+using System;
+using Naninovel;
+
 namespace NanizationCodeBase.Components.NotMonoBehaviours.LocalizationBuilders
 {
-    public interface INanizationBuild
+    public interface INanizationBuild : IHaveLocalizationDocument, IHaveLocalizationKey
     {
-        IWithDocumentNanizationBuildWithFallback WithDocument(string documentName);
-        IWithKeyNanizationBuild WithKey(string key);
+        INanizationSubscriber Subscribe(Action<string> callback, bool localizeNow = true);
+        UniTask<string> LocalizeAsync();
     }
 }

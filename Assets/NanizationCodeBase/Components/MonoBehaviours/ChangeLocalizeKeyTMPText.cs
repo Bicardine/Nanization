@@ -6,13 +6,11 @@ using UnityEngine.Events;
 namespace NanizationCodeBase.Components.MonoBehaviours
 {
     [RequireComponent(typeof(TMP_Text))]
-    public class SetLocalizeKeyTMPText : MonoBehaviour
+    public class ChangeLocalizeKeyTMPText : MonoBehaviour
     {
         [SerializeField] private TMP_Text _tmpText;
         [SerializeField] private string _documentName;
         [SerializeField] private string _fallback;
-
-        private string _key;
         
         private INanizationSubscriber _nanizationSubscriber;
 
@@ -21,31 +19,18 @@ namespace NanizationCodeBase.Components.MonoBehaviours
         #if UNITY_EDITOR
         private void OnValidate() => _tmpText = GetComponent<TMP_Text>();
         #endif
-
-        public void SetKey(string key)
+        
+        public void ChangeKey(string key)
         {
-            _key = key;
-            
-            _nanizationSubscriber.Unsubscribe();
+            _nanizationSubscriber?.Dispose();
 
-            NewSubscribe();
-        }
-
-        private void Start()
-        {
-            NewSubscribe();
+            _nanizationSubscriber = Nanization.Bind().WithDocument(_documentName).WithKey(key).SetFallback(_fallback).Subscribe(Localize);
         }
 
         private void OnDestroy()
         {
-            _nanizationSubscriber.Unsubscribe();
+            _nanizationSubscriber.Dispose();
         }
-
-        private void NewSubscribe()
-        {
-            _nanizationSubscriber = Nanization.Subscribe(_documentName, _key, Localize, localizeNow: false);
-        }
-
 
         private void Localize(string localizedValue)
         {

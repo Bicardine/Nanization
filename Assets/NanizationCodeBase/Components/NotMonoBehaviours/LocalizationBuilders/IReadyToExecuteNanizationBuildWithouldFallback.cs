@@ -1,12 +1,14 @@
+using System;
+
 namespace NanizationCodeBase.Components.NotMonoBehaviours.LocalizationBuilders
 {
     public interface IReadyToExecuteNanizationBuildWithFallback :
-        IReadyToLocalizeBuild, IHaveLocalizationDocument, IHaveLocalizationKey, IHaveFallback
+        INanizationBuild, IHaveLocalizationDocument, IHaveLocalizationKey, IHaveFallback
     {
     }
 
     public interface IReadyToExecuteNanizationBuild :
-        IReadyToLocalizeBuild, IHaveLocalizationDocument, IHaveLocalizationKey, ICanSetFallback<IReadyToExecuteNanizationBuildWithFallback>
+        INanizationBuild, ICanSetFallback<IReadyToExecuteNanizationBuildWithFallback>
     {
     }
 }

@@ -1,6 +1,9 @@
+using System;
+using NanizationCodeBase.Model.Data;
+
 namespace NanizationCodeBase.Components.NotMonoBehaviours
 {
-    public interface INanizationSubscriber
+    public interface INanizationSubscriber : IHaveId<Guid>, IDisposable
     {
         bool IsActive { get; }
         
@@ -9,7 +12,5 @@ namespace NanizationCodeBase.Components.NotMonoBehaviours
         void Resume(bool localizeNow = true);
         
         void Localize();
-        
-        void Unsubscribe();
     }
 }
