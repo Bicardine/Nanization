@@ -179,6 +179,16 @@ tmpText = await "ControlPanel.Title".Bind()
           .LocalizeAsync(); // Will find localization with Document = "DefaultUI" Key = "ControlPanel.Title"
 ```
 
+And also wotk with subscribe:
+```csharp
+Nanization.Subscribe(localizationBuildWithFallback, localizedValue => { print(localizedValue); });
+```
+
+Or just use method
+```csharp
+localizationBuildWithFallback.Subscribe(Localize);
+```
+
 By the way you can also use "Inline chaining":
 ```csharp
 Nanization.Bind().WithKey("SomeKey").WithDocument("SomeDoc").SetFallback("SomeFallback");
