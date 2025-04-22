@@ -1,19 +1,24 @@
 # Nanization
+![nanizationlogowithtext](https://github.com/user-attachments/assets/ad29d37b-b3bf-4ba3-83f6-6822af74c1f0)
+
 > Simple Naninovel localization without boilerplate code. Works like a ninja!
 
 ## Features ✨
-- No need to worry about `Engine.Initialized`!
-- No need to get `Engine.GetService<ITextManager>()`!
-- No need to worry about `DocumentLoader.IsLoaded`!
-- Auto-subscribers for locale changes!
-- Just use it - Nanization handles everything behind the scenes!
+- No need to worry about `Engine.Initialized`
+- No need to get `Engine.GetService<ITextManager>/<ILocalizationManager>()`
+- No need to worry about `DocumentLoader.IsLoaded`
+- Auto-subscribers for locale changes
+- Just use it - Nanization handles everything behind the scenes
 
 ## Requirements 📦
 - Naninovel v1.20 or later
 
 ## Installation ⚙️
-Install via git or just download .unitypackage from
+- Make sure Naninovel is installed in project
+- Install Nanization via git or just download .unitypackage from
 [Releases](https://github.com/Bicardine/Nanization/releases)
+- Make sure managed text was created
+
 
 ## Usage 🏹
 There is many mode-ways to use Nanization!
@@ -26,7 +31,7 @@ There is many mode-ways to use Nanization!
 public async UniTask Localize()
 {
   // Will localize your string. Even Engine.Initialized == false will wait for it and return localized string.
-  myTmpText.text = await "DefaultUI.ControlPanel.Title".LocalizeAsync()
+  myTmpText.text = await "DefaultUI.ControlPanel.Title".LocalizeAsync();
   // If there is no arguments, will localize string like whole localization path
   // (Document = "DefaultUI", Key = "ControlPanel.Title" (all after first auto exclusive dot)
 }
@@ -35,7 +40,7 @@ public async UniTask Localize()
 Another way:
 ```csharp
   // (Document = "DefaultUI", Key = "ControlPanel.Title")
-  myTmpText.text = await "ControlPanel.Title".LocalizeAsync("DefaultUI")
+  myTmpText.text = await "ControlPanel.Title".LocalizeAsync("DefaultUI");
 ```
 
 Of course it's work with variables string:
@@ -46,8 +51,10 @@ myTmpText.text = await myFullLocalizedPathString.LocalizeAsync();
 ```
 
 
+
+
 ### 2. Ninja-mode
-- Auto update (get current localization from locale) on locale changed
+- Will auto subscribe to locale changed
 In this mod, you need to specify which document and key you want to sign and which Action<string> to call to localize
 
 Use:
@@ -73,7 +80,7 @@ private void Start()
 // Auto called every time on localized changed.
 private void OnLocalized(string localizedValue)
 {
-    UnityEngine.Debug.Log($"I was localized!: {localizedValue}")
+    UnityEngine.Debug.Log($"I was localized!: {localizedValue}");
     _tmpText.SetText(localizedValue);
 }
 ```
@@ -84,7 +91,7 @@ You can also "pause" your subscriber, so...
 
 ```csharp
 // Localize and subscribe to locale changed.
-var nanizatoinSubscriber = Nanization.Subscribe(_documentName, _key, OnLocalized
+var nanizatoinSubscriber = Nanization.Subscribe(_documentName, _key, OnLocalized)
 
 nanizatoinSubscriber.Pause() // Will unsubscribe from OnLocaleChanged events and will not execute localizatoin callbacks so
 // OnLocalized() Will not execute on locale changed becouse of Pause(), until Resume()
@@ -95,7 +102,7 @@ nanizatoinSubscriber.Resume() // Will continue execute callback on localiation c
 
 to localize it with your hand, use 
 ```csharp
-nanizationSubscriber.Localize()
+nanizationSubscriber.Localize();
 ```
 If your want control localization invoke it for some reason (if was seted localizeNow = false on subscribe for example)
 
@@ -104,12 +111,14 @@ If you don't want use nanizatoinSubscriber anymore:
 ```csharp
 private void OnDestroy()
 {
-  nanizationSubscriber.Unsubscribe() // when object will destroy, invoke IDisposable
+  nanizationSubscriber.Unsubscribe(); // When object will destroy, invoke IDisposable
 }
 ```
 
 
-3. Bind-mode (build your own way, as ninja with method chaining!)
+
+
+### 3. Bind-mode (build your own way, as ninja with method chaining!)
 - If need to transfer the localization bind to runtime or perform actions depending on conditions
 - If need to get info about localization (such as document, key, fallback)
 - Fluent builder mode with compiler grant (strict-order)
@@ -122,20 +131,20 @@ Nanization.Bind() // Will start bind your localization.
   .LocalizeAsync(); // Will execute localization right now.
 ```
 
-Compiler grant means you can use methods as .SetFallback() in start bind:
+Compiler grant means you can use methods as .SetFallback() in any order in bind:
 
 ```csharp
 Nanization.Bind()
   .SetFallback("Title")// Will start bind your localization.
   .WithKey("TitileMenu.Title") // Will set key = "TitileMenu.Title"
-  .WithDocument("DefaultUI")
+  .WithDocument("DefaultUI");
 ```
-But you can't use SetFallback twice, or another one-time methods
+But you can't use SetFallback twice, or another one-time methods.
 It's means IDE also will safely show field that already was setting.
 
 For example:
 ```csharp
-Nanization.Bind().WIthKey("SomeKey).Key // IDE will show "Key" as possible public field, and allow to access to it.
+Nanization.Bind().WIthKey("SomeKey).Key // IDE will show Key as possible public field, and allow to access to it.
 Nanization.Bind().Key // Not showing in IDE, the key wasn't setting yet.
 ```
 
@@ -178,7 +187,7 @@ Nanization.Bind().WithKey("SomeKey").WithDocument("SomeDoc").SetFallback("SomeFa
 Or use vertical chaining, like example below.
 
 ## Notes 📝
-- Keep it in mind, unlike holy Naninovel accepts the key first in localization components, then the document (key, document), Nanization always requires the Document first, then the Key, as a more logical order.
+- Keep it in mind, unlike holy Naninovel accepts the Key first in localization methods, then the Document (key, document), Nanization always requires the Document first, then the Key (document, key), as a more logical order.
 - You can use NanizationService to get ITextManager or ILocalizationManager with own hand, without scary of Engine.Initialized == false
 ```csharp
   var textManager = await NanizationService.GetTextManagerAsync();
